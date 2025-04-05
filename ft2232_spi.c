@@ -359,6 +359,14 @@ static int ft2232_spi_init(const struct programmer_cfg *cfg)
 			*    dir: 0x1b  OE=output, CS=output, DI=input, DO=output, SK=output */
 			cs_bits = 0x18;
 			pindir = 0x1b;
+		} else if (!strcasecmp(arg, "C087")) {
+			ft2232_type = FTDI_FT2232H_PID;
+			channel_count = 2;
+			/* Honeywell C087 (SPI1) needs to enable its output via Bit6 / GPIOL2
+			*  value: 0x48  OE=high, CS=high, DI=low, DO=low, SK=low
+			*    dir: 0x4b  OE=output, CS=output, DI=input, DO=output, SK=output */
+			cs_bits = 0x48;
+			pindir = 0x4b;
 		} else if (!strcasecmp(arg, "picotap")) {
 			ft2232_vid = GOEPEL_VID;
 			ft2232_type = GOEPEL_PICOTAP_PID;
